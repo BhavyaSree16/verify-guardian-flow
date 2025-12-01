@@ -1,10 +1,9 @@
-1. Aadhar PDF 
-    1. extraction of text
-    2. if locked show to unlock the password
-    3. reduce the size of pdf if >1024
-2. writing zkp circuits
-3. deploying verifier.sol
-4. frontend changes
-    1. upload aadhar
-    2. parse extracted text to gemini 
-    
+1. integration of zkp's , face api to frontend
+2. frontend change ✅
+    2.1 Firebase upload for zip files ✅
+    2.2 steps for uploading aadhar xml ✅
+    2.3 Changes in "KYC verify" tab in website ✅
+    2.4 Verification Tab in website (in both off-chain and on-chain) ✅
+    2.5 Face Verification ✅
+3. NFT code writing and mixing with the verifier.sol ✅
+4. Ultimately deployment
