@@ -28,6 +28,8 @@ interface VerificationTabProps {
   proofData?: any;
   ipfsHash?: string;
   txHash?: string;
+  proofJson?: any;
+  publicJson?: any;
 }
 
 interface NFTMetadata {
@@ -64,7 +66,9 @@ export const VerificationTab: React.FC<VerificationTabProps> = ({
   kycData,
   proofData,
   ipfsHash,
-  txHash
+  txHash,
+  proofJson,
+  publicJson
 }) => {
   const [verificationStatus, setVerificationStatus] = useState<VerificationStatus>({
     stage: 'pending',
@@ -176,7 +180,30 @@ export const VerificationTab: React.FC<VerificationTabProps> = ({
       nftMetadata,
       timestamp: new Date().toISOString(),
       proofHash: ipfsHash,
-      transactionHash: txHash
+      transactionHash: txHash,
+      // Include ZK proof files
+      zkProof: {
+        proof: proofJson,
+        publicSignals: publicJson,
+        algorithm: "Groth16",
+        curve: "bn128"
+      },
+      // Verification data
+      aadhaarData: aadhaarUploadResult ? {
+        fileName: aadhaarUploadResult.fileName,
+        uploadedAt: aadhaarUploadResult.uploadedAt,
+        extractedData: aadhaarUploadResult.extractedData ? {
+          name: aadhaarUploadResult.extractedData.name,
+          dob: aadhaarUploadResult.extractedData.dob,
+          gender: aadhaarUploadResult.extractedData.gender,
+          state: aadhaarUploadResult.extractedData.address?.state
+        } : null
+      } : null,
+      faceVerification: faceVerificationResult ? {
+        verificationPassed: faceVerificationResult.verificationPassed,
+        confidence: faceVerificationResult.confidence,
+        details: faceVerificationResult.details
+      } : null
     };
 
     const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
@@ -189,7 +216,7 @@ export const VerificationTab: React.FC<VerificationTabProps> = ({
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
     
-    toast.success('Verification report downloaded');
+    toast.success('Comprehensive verification report downloaded with ZK proof files');
   };
 
   return (
