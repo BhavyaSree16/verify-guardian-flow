@@ -6,7 +6,7 @@ const navItems = [
   { to: '/', label: 'Home', icon: Home },
   { to: '/profile', label: 'Profile', icon: User },
   { to: '/kyc', label: 'KYC Verification', icon: Shield },
-  { to: '/nft', label: 'NFT', icon: Wallet },
+  // { to: '/nft', label: 'NFT', icon: Wallet },
 ];
 
 export const Navigation = () => {
